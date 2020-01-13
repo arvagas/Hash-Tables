@@ -23,6 +23,7 @@ class HashTable:
 
         You may replace the Python hash with DJB2 as a stretch goal.
         '''
+        
         return hash(key)
 
 
@@ -51,8 +52,23 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
 
+        if self.storage[index]:
+            current_node = self.storage[index]
+
+            while current_node.next:
+                if current_node.key == key:
+                    current_node.value == value
+                    break
+                current_node = current_node.next
+
+            if current_node.key == key:
+                current_node.value = value
+            else:
+                current_node.next = LinkedPair(key, value)
+        else:
+            self.storage[index] = LinkedPair(key, value)
 
 
     def remove(self, key):
@@ -74,7 +90,13 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        current_node = self.storage[index]
+
+        while current_node is not None:
+            if current_node.key == key:
+                return current_node.value
+            current_node = current_node.next
 
 
     def resize(self):
