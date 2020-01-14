@@ -112,7 +112,18 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        self.capacity *= 2
+
+        new_storage = [None] * self.capacity
+
+        for node in self.storage:
+            if node is not None:
+                new_index = self._hash_mod(node.key)
+                new_storage[new_index] = node
+        
+        self.storage = new_storage
+
+
 
 
 
