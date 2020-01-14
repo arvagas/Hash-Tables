@@ -113,6 +113,7 @@ class HashTable:
         '''
         old_storage = []
 
+        # we grab the old key:value pairs
         for node in self.storage:
             while node is not None:
                 old_storage.append([node.key, node.value])
@@ -121,6 +122,7 @@ class HashTable:
         self.capacity *= 2
         self.storage = [None] * self.capacity
 
+        # we insert key:value pairs as new (rehash)
         for node in old_storage:
             self.insert(node[0], node[1])
 
