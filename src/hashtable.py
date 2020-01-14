@@ -70,7 +70,6 @@ class HashTable:
         else:
             self.storage[index] = LinkedPair(key, value)
 
-
     def remove(self, key):
         '''
         Remove the value stored with the given key.
@@ -112,16 +111,18 @@ class HashTable:
 
         Fill this in.
         '''
-        self.capacity *= 2
-
-        new_storage = [None] * self.capacity
+        old_storage = []
 
         for node in self.storage:
-            if node is not None:
-                new_index = self._hash_mod(node.key)
-                new_storage[new_index] = node
-        
-        self.storage = new_storage
+            while node is not None:
+                old_storage.append([node.key, node.value])
+                node = node.next
+
+        self.capacity *= 2
+        self.storage = [None] * self.capacity
+
+        for node in old_storage:
+            self.insert(node[0], node[1])
 
 
 
